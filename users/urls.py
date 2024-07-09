@@ -6,6 +6,8 @@ from . import views
 
 app_name = 'users'
 urlpatterns = [
+    # Home page.
+    path('', views.index, name='index'),
     # Include default auth urls.
     path('', include('django.contrib.auth.urls')),
     # Registration page.
