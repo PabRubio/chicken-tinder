@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chicken Tinder</title>
+    <meta name="description"
+        content="Chicken Tinder: Where feathered friends find love and companionship. Join thousands of happy chickens who've found their perfect match.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="flex flex-col h-full bg-gray-900">
+    <header class="bg-gradient-to-r from-pink-500 to-red-500 text-white p-6">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center">
+                <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center overflow-hidden mr-4">
+                    <img src="{% static 'images/logo.png' %}" alt="Chicken Tinder Logo"
+                        class="w-full h-full object-cover">
+                </div>
+                <h1 class="text-3xl font-bold">Chicken Tinder</h1>
+            </div>
+            <nav>
+                <a href="{% url 'users:login' %}"
+                    class="bg-white text-pink-500 py-3 px-6 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors duration-200">
+                    Login
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-12">
+        <section class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-white mb-4">Find Your Perfect Roost-mate</h2>
+            <p class="text-xl text-gray-400 mb-8">Chicken Tinder: Where feathered friends find love and companionship
+            </p>
+            <a href="{% url 'users:signup' %}"
+                class="bg-gradient-to-r from-pink-500 to-red-500 text-white py-3 px-8 rounded-full font-bold text-lg hover:from-pink-600 hover:to-red-600 transition-colors duration-200">
+                Start Pecking
+            </a>
+        </section>
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div class="bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center">
+                <i data-lucide="heart" class="h-12 w-12 text-pink-500 mb-4" aria-hidden="true"></i>
+                <h3 class="text-xl font-bold text-white mb-2">Match</h3>
+                <p class="text-gray-400">Find your perfect chicken match based on breed, personality, and favorite seeds
+                </p>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center">
+                <i data-lucide="message-circle" class="h-12 w-12 text-pink-500 mb-4" aria-hidden="true"></i>
+                <h3 class="text-xl font-bold text-white mb-2">Chat</h3>
+                <p class="text-gray-400">Cluck and cackle with your matches in our easy-to-use chat system</p>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center">
+                <i data-lucide="search" class="h-12 w-12 text-pink-500 mb-4" aria-hidden="true"></i>
+                <h3 class="text-xl font-bold text-white mb-2">Discover</h3>
+                <p class="text-gray-400">Explore a diverse flock of chickens from all around the coop</p>
+            </div>
+        </section>
+        <section class="text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">Ready to Rule the Roost?</h2>
+            <p class="text-xl text-gray-400 mb-8">Join thousands of happy chickens who've found their perfect match</p>
+            <a href="{% url 'users:signup' %}"
+                class="bg-white text-pink-500 py-3 px-8 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors duration-200">
+                Create Your Profile
+            </a>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-400 py-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Chicken Tinder. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
