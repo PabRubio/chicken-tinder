@@ -23,15 +23,20 @@
                 {% csrf_token %}
                 <div class="relative mb-4">
                     <i data-lucide="user" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                        style="width: 20px; height: 20px;"></i>
-                    <input type="text" name="username" placeholder="Username"
+                        style="width: 20px; height: 20px;" aria-hidden="true"></i>
+                    <input type="text" name="username" placeholder="Username" aria-label="Username"
                         class="w-full py-2 pl-10 pr-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
                 </div>
                 <div class="relative mb-4">
                     <i data-lucide="lock" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                        style="width: 20px; height: 20px;"></i>
-                    <input type="password" name="password" placeholder="Password"
+                        style="width: 20px; height: 20px;" aria-hidden="true"></i>
+                    <input type="password" name="password" placeholder="Password" aria-label="Password"
                         class="w-full py-2 pl-10 pr-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                    <button type="button"
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 focus:outline-none"
+                        onclick="togglePasswordVisibility('password', 'password-eye')">
+                        <i data-lucide="eye" id="password-eye" style="width: 20px; height: 20px;"></i>
+                    </button>
                 </div>
 
                 <button type="submit"
@@ -56,6 +61,19 @@
 
     <script>
         lucide.createIcons();
+
+        function togglePasswordVisibility(inputName, iconId) {
+            var input = document.querySelector(`input[name="${inputName}"]`);
+            var icon = document.getElementById(iconId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                input.type = "password";
+                icon.setAttribute('data-lucide', 'eye');
+            }
+            lucide.createIcons();
+        }
     </script>
 </body>
 
