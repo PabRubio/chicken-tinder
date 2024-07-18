@@ -20,73 +20,61 @@
         <div class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
             <h2 class="text-2xl font-bold text-white mb-6 text-center">Join the Flock</h2>
 
-            <form method="post">
+            <form action="{% url 'users:signup' %}" method="post" id="signupForm">
                 {% csrf_token %}
-                <div class="relative mb-4">
-                    <i data-lucide="user" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                        style="width: 20px; height: 20px;" aria-hidden="true"></i>
-                    <input type="text" name="username" placeholder="Username" aria-label="Username"
-                        class="w-full py-2 pl-10 pr-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                {% if form.errors %}
+                <div class="mb-4 p-2 bg-red-100 text-red-700 rounded" role="alert">
+                    <ul class="list-disc pl-5">
+                        {% for field in form %}
+                        {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
+                {% endif %}
+
+                {% for field in form %}
                 <div class="relative mb-4">
-                    <i data-lucide="lock" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                        style="width: 20px; height: 20px;" aria-hidden="true"></i>
-                    <input type="password" name="password" placeholder="Password" aria-label="Password"
-                        class="w-full py-2 pl-10 pr-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
+                    <label for="{{ field.id_for_label }}" class="sr-only">{{ field.label }}</label>
+                    <i data-lucide="{% if field.name == 'username' %}user{% else %}lock{% endif %}"
+                        class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" aria-hidden="true"></i>
+                    {{ field }}
+                    {% if field.name != 'username' %}
                     <button type="button"
                         class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 focus:outline-none"
-                        onclick="togglePasswordVisibility('password', 'password-eye')">
-                        <i data-lucide="eye" id="password-eye" style="width: 20px; height: 20px;"></i>
+                        onclick="togglePasswordVisibility('{{ field.id_for_label }}', '{{ field.id_for_label }}-eye')"
+                        aria-label="Toggle password visibility">
+                        <i data-lucide="eye" id="{{ field.id_for_label }}-eye" aria-hidden="true"></i>
                     </button>
+                    {% endif %}
                 </div>
-                <div class="relative mb-4">
-                    <i data-lucide="lock" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                        style="width: 20px; height: 20px;" aria-hidden="true"></i>
-                    <input type="password" name="confirm_password" placeholder="Confirm Password"
-                        aria-label="Confirm Password"
-                        class="w-full py-2 pl-10 pr-3 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500">
-                    <button type="button"
-                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 focus:outline-none"
-                        onclick="togglePasswordVisibility('confirm_password', 'confirm-password-eye')">
-                        <i data-lucide="eye" id="confirm-password-eye" style="width: 20px; height: 20px;"></i>
-                    </button>
-                </div>
+                {% endfor %}
+
+                <div id="passwordMismatch" class="text-red-500 mb-4 hidden" role="alert">Passwords do not match.</div>
 
                 <button type="submit"
                     class="w-full bg-gradient-to-r from-pink-500 to-red-500 text-white py-2 rounded-lg flex items-center justify-center mt-6 hover:opacity-90 transition-opacity duration-200">
                     <span class="mr-2">Sign Up</span>
-                    <i data-lucide="chevron-right" style="width: 20px; height: 20px;"></i>
+                    <i data-lucide="chevron-right" aria-hidden="true"></i>
                 </button>
             </form>
 
-            <p class="text-gray-400 text-center mt-6">
-                Already have an account?
-                <a href="{% url 'users:login' %}" class="text-pink-500 ml-2 hover:underline">Login</a>
-            </p>
+            <p class="text-gray-400 text-center mt-6">Already have an account? <a href="{% url 'users:login' %}"
+                    class="text-pink-500 ml-2 hover:underline">Login</a></p>
         </div>
     </main>
 
     <footer class="bg-gray-800 border-t border-gray-700 p-4">
-        <p class="text-gray-400 text-center">
-            &copy; 2024 Chicken Tinder. All rights reserved.
-        </p>
+        <p class="text-gray-400 text-center">&copy; 2024 Chicken Tinder. All rights reserved.</p>
     </footer>
 
+    <script src="{% static 'js/signup.js' %}"></script>
     <script>
         lucide.createIcons();
-
-        function togglePasswordVisibility(inputName, iconId) {
-            var input = document.querySelector(`input[name="${inputName}"]`);
-            var icon = document.getElementById(iconId);
-            if (input.type === "password") {
-                input.type = "text";
-                icon.setAttribute('data-lucide', 'eye-off');
-            } else {
-                input.type = "password";
-                icon.setAttribute('data-lucide', 'eye');
-            }
-            lucide.createIcons();
-        }
     </script>
 </body>
 
