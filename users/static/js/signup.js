@@ -13,6 +13,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const password2 = document.getElementById('id_password2');
     const mismatchDiv = document.getElementById('passwordMismatch');
 
+    function checkPasswordMatch() {
+        if (password1.value !== password2.value) {
+            mismatchDiv.classList.remove('hidden');
+        } else {
+            mismatchDiv.classList.add('hidden');
+        }
+    }
+
     form.addEventListener('submit', function (event) {
         if (password1.value !== password2.value) {
             event.preventDefault();
@@ -22,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    password2.addEventListener('input', function () {
-        mismatchDiv.classList.toggle('hidden', this.value === password1.value);
-    });
+    password1.addEventListener('input', checkPasswordMatch);
+    password2.addEventListener('input', checkPasswordMatch);
 });

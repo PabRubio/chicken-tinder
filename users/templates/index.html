@@ -17,10 +17,11 @@
     <header class="bg-gradient-to-r from-pink-500 to-red-500 text-white p-6">
         <div class="container mx-auto flex items-center justify-between">
             <div class="flex items-center">
-                <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center overflow-hidden mr-4">
+                <a href="{% url 'users:index' %}"
+                    class="w-24 h-24 bg-white rounded-full flex items-center justify-center overflow-hidden mr-4">
                     <img src="{% static 'images/logo.png' %}" alt="Chicken Tinder Logo"
                         class="w-full h-full object-cover">
-                </div>
+                </a>
                 <h1 class="text-3xl font-bold">Chicken Tinder</h1>
             </div>
             <nav>
