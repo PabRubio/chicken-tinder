@@ -6,7 +6,11 @@ from .models import Profile, ChickenImage
 
 @login_required
 def edit_profile(request):
-    profile = request.user.profile
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        profile = Profile.objects.create(chicken=request.user)
+        profile.save()
 
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=profile)
