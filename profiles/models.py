@@ -53,6 +53,23 @@ class Profile(models.Model):
     foraging_skill = models.CharField(max_length=20)
     favorite_food = models.CharField(max_length=20)
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.name = self.name or 'Henrietta'
+            self.breed = self.breed or 'Rhode Island Red'
+            self.age = self.age or 2
+            self.location = self.location or 'Sunny Coop Farm'
+            self.bio = self.bio or (
+                "Clucky and proud! I enjoy scratching for worms, taking dust baths, "
+                "and watching the sunset from my favorite perch. Looking for a rooster "
+                "who can keep up with my egg-cellent adventures!"
+            )
+            self.egg_production = self.egg_production or 'High'
+            self.temperament = self.temperament or 'Friendly'
+            self.foraging_skill = self.foraging_skill or 'Expert'
+            self.favorite_food = self.favorite_food or 'Mealworms'
+        super(Profile, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
