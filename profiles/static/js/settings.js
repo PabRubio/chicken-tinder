@@ -20,6 +20,35 @@ bioTextarea.addEventListener('input', function () {
 
 bioCharCount.textContent = bioTextarea.value.length;
 
+const ageInput = document.getElementById('id_age');
+ageInput.addEventListener('input', function () {
+    let value = this.value;
+    value = value.replace(/[^0-9]/g, '');
+    value = Math.max(0, Math.min(23, parseInt(value) || 0));
+    this.value = value;
+});
+
+const nameInput = document.getElementById('id_name');
+if (nameInput) {
+    nameInput.addEventListener('input', function () {
+        let value = this.value.replace(/[^a-zA-Z]/g, '').slice(0, 10);
+        if (value.length > 0) value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+        this.value = value;
+    });
+}
+
+const locationInput = document.getElementById('id_location');
+if (locationInput) {
+    locationInput.addEventListener('input', function () {
+        let value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/\s+/g, ' ').trimStart();
+        if (value.endsWith(' ') && value.trim().split(' ').slice(-1)[0].length < 3) value = value.slice(0, -1);
+        if (value.length > 15) value = value.substring(0, 15).replace(/\s+$/, '');
+        value = value.toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase());
+        this.value = value;
+    });
+    locationInput.addEventListener('blur', function () { this.value = this.value.trim(); });
+}
+
 const imageContainer = document.getElementById('image-container');
 const addImageButton = document.getElementById('add-image');
 const fileInput = document.getElementById('file-input');

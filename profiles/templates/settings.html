@@ -35,7 +35,13 @@
                     {% for field in form %}
                     {% if field.name not in 'egg_production,temperament,foraging_skill,favorite_food' %}
                     <div class="relative">
+                        {% if field.name == 'age' %}
+                        <input type="number" name="{{ field.name }}" id="{{ field.id_for_label }}" min="0" max="23"
+                            step="1" value="{{ field.value|default_if_none:'' }}"
+                            class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white shadow-sm hover:shadow-md focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-all peer placeholder-transparent">
+                        {% else %}
                         {{ field }}
+                        {% endif %}
                         <label for="{{ field.id_for_label }}"
                             class="absolute left-4 -top-2.5 bg-gray-900 px-1 text-sm text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:top-2 peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-pink-500">
                             {{ field.label }}
