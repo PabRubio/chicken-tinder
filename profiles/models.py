@@ -73,10 +73,10 @@ class Profile(models.Model):
     def __str__(self):
         return self.name
 
-class ChickenImage(models.Model):
+class Image(models.Model):
     profile = models.ForeignKey(
         Profile, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='chicken_images/')
+    image = models.ImageField(upload_to='')
 
     def __str__(self):
         return f"Image for {self.profile.name}"

@@ -41,7 +41,6 @@ const locationInput = document.getElementById('id_location');
 if (locationInput) {
     locationInput.addEventListener('input', function () {
         let value = this.value.replace(/[^a-zA-Z ]/g, '').replace(/\s+/g, ' ').trimStart();
-        if (value.endsWith(' ') && value.trim().split(' ').slice(-1)[0].length < 3) value = value.slice(0, -1);
         if (value.length > 15) value = value.substring(0, 15).replace(/\s+$/, '');
         value = value.toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase());
         this.value = value;
@@ -142,7 +141,7 @@ imageContainer.addEventListener('change', async function (e) {
                         addImageToContainer(img.src, file);
                         const wrapper = e.target.closest('.image-wrapper');
                         wrapper.innerHTML = `
-                            <img src="${img.src}" class="w-full h-full object-cover rounded-lg shadow-lg">
+                            <img src="${img.src}" class="w-full h-full object-fill rounded-lg shadow-lg">
                             <button type="button" class="remove-image absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <i data-lucide="x" class="w-4 h-4"></i>
                             </button>
@@ -168,7 +167,7 @@ function addImageToContainer(imgSrc, file) {
     const wrapper = document.createElement('div');
     wrapper.className = 'relative group aspect-square image-wrapper';
     wrapper.innerHTML = `
-        <img src="${imgSrc}" class="w-full h-full object-cover rounded-lg shadow-lg">
+        <img src="${imgSrc}" class="w-full h-full object-fill rounded-lg shadow-lg">
         <button type="button" class="remove-image absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <i data-lucide="x" class="w-4 h-4"></i>
         </button>

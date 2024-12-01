@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import ProfileForm, ChickenImageFormSet
-from .models import Profile, ChickenImage
+from .models import Profile, Image
 
 @login_required
 def edit_profile(request):
@@ -27,7 +27,7 @@ def edit_profile(request):
 
             new_image = request.FILES.get('new_image')
             if new_image:
-                ChickenImage.objects.create(profile=profile, image=new_image)
+                Image.objects.create(profile=profile, image=new_image)
 
             for deleted_object in image_formset.deleted_objects:
                 deleted_object.delete()
