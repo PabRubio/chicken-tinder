@@ -1,70 +1,80 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chicken Profile</title>
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
-<body class="flex flex-col h-screen bg-gray-900 text-white">
-    <header class="bg-gradient-to-r from-pink-500 to-red-500 p-4 flex justify-between items-center">
-        <a href="{% url 'profiles:profile' %}" class="cursor-pointer">
-            <i data-lucide="chevron-left" class="w-6 h-6"></i>
-        </a>
-        <h1 class="text-xl font-bold">{{ profile.name }}</h1>
-        <a href="{% url 'profiles:settings' %}" class="cursor-pointer">
-            <i data-lucide="settings" class="w-6 h-6"></i>
-        </a>
+<body class="flex flex-col h-full bg-gray-900 text-white">
+    <header class="bg-gradient-to-r from-pink-500 to-red-500 p-6">
+        <div class="container mx-auto flex items-center justify-between">
+            <a href="{% url 'profiles:profile' %}" class="w-12 h-12 flex items-center justify-center">
+                <i data-lucide="chevron-left" class="w-8 h-8"></i>
+            </a>
+            <h1 class="text-3xl font-bold">{{ profile.name }}</h1>
+            <a href="{% url 'profiles:settings' %}" class="w-12 h-12 flex items-center justify-center">
+                <i data-lucide="settings" class="w-8 h-8"></i>
+            </a>
+        </div>
     </header>
-    <main class="flex-grow overflow-y-auto">
-        <div class="relative">
-            <img src="{{ profile.images.first.image.url }}" alt="{{ profile.name }}" class="w-full h-96 object-cover">
-            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 to-transparent p-4">
-                <h2 class="text-3xl font-bold">{{ profile.name }}, {{ profile.age }}</h2>
-                <p class="text-gray-300 flex items-center mt-1">
-                    <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i>
+
+    <main class="flex-grow container mx-auto px-4 py-12">
+        <div class="relative mb-12">
+            <img src="{{ profile.images.first.image.url }}" alt="{{ profile.name }}"
+                class="w-full h-96 object-fill rounded-lg">
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 to-transparent p-4 rounded-lg">
+                <h2 class="text-4xl font-bold">{{ profile.name }}, {{ profile.age }}</h2>
+                <p class="text-lg text-gray-300 flex items-center mt-1">
+                    <i data-lucide="map-pin" class="w-5 h-5 mr-2"></i>
                     {{ profile.location }}
                 </p>
             </div>
         </div>
-        <div class="p-4 space-y-4">
-            <p class="text-gray-300">{{ profile.bio }}</p>
-            <div>
-                <h3 class="text-xl font-semibold mb-2">My Attributes</h3>
-                <div class="grid grid-cols-2 gap-2">
-                    <div class="bg-gray-800 rounded-full px-4 py-2 flex items-center">
-                        <span class="text-gray-400 mr-2">Egg Production</span>
-                        <span class="text-white font-semibold">{{ profile.egg_production }}</span>
-                    </div>
-                    <div class="bg-gray-800 rounded-full px-4 py-2 flex items-center">
-                        <span class="text-gray-400 mr-2">Temperament</span>
-                        <span class="text-white font-semibold">{{ profile.temperament }}</span>
-                    </div>
-                    <div class="bg-gray-800 rounded-full px-4 py-2 flex items-center">
-                        <span class="text-gray-400 mr-2">Foraging Skill</span>
-                        <span class="text-white font-semibold">{{ profile.foraging_skill }}</span>
-                    </div>
-                    <div class="bg-gray-800 rounded-full px-4 py-2 flex items-center">
-                        <span class="text-gray-400 mr-2">Favorite Food</span>
-                        <span class="text-white font-semibold">{{ profile.favorite_food }}</span>
-                    </div>
+
+        <section class="mb-12">
+            <h3 class="text-3xl font-bold mb-6">About Me</h3>
+            <p class="text-lg text-gray-300">{{ profile.bio }}</p>
+        </section>
+
+        <section class="mb-12">
+            <h3 class="text-3xl font-bold mb-6">My Attributes</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-800 rounded-full px-6 py-4 flex items-center">
+                    <span class="text-lg text-gray-400 mr-2">Egg Production</span>
+                    <span class="text-lg text-white font-semibold">{{ profile.egg_production }}</span>
+                </div>
+                <div class="bg-gray-800 rounded-full px-6 py-4 flex items-center">
+                    <span class="text-lg text-gray-400 mr-2">Temperament</span>
+                    <span class="text-lg text-white font-semibold">{{ profile.temperament }}</span>
+                </div>
+                <div class="bg-gray-800 rounded-full px-6 py-4 flex items-center">
+                    <span class="text-lg text-gray-400 mr-2">Foraging Skill</span>
+                    <span class="text-lg text-white font-semibold">{{ profile.foraging_skill }}</span>
+                </div>
+                <div class="bg-gray-800 rounded-full px-6 py-4 flex items-center">
+                    <span class="text-lg text-gray-400 mr-2">Favorite Food</span>
+                    <span class="text-lg text-white font-semibold">{{ profile.favorite_food }}</span>
                 </div>
             </div>
-            <div>
-                <h3 class="text-xl font-semibold mb-2">My Photos</h3>
-                <div class="flex space-x-2 overflow-x-auto py-2">
-                    {% for image in profile.images.all %}
-                    <img src="{{ image.image.url }}" alt="{{ profile.name }} {{ forloop.counter }}"
-                        class="w-24 h-24 object-cover rounded-lg">
-                    {% endfor %}
-                </div>
+        </section>
+
+        <section>
+            <h3 class="text-3xl font-bold mb-6">My Photos</h3>
+            <div class="flex space-x-4 overflow-x-auto py-2">
+                {% for image in profile.images.all %}
+                <img src="{{ image.image.url }}" alt="{{ profile.name }} {{ forloop.counter }}"
+                    class="w-32 h-32 object-fill rounded-lg shadow-md">
+                {% endfor %}
             </div>
-        </div>
+        </section>
     </main>
+
     <script>
         lucide.createIcons();
     </script>
